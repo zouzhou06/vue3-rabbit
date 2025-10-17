@@ -19,7 +19,7 @@ const categoryStore = useCategoryStore()
                 <div class="info">
                   <p class="name ellipsis-2">
                     {{ i.name }}
-                  </p>
+                  </p>s
                   <p class="desc ellipsis">{{ i.desc }}</p>
                   <p class="price"><i>{{ i.price }}</i>200.00</p>
                 </div>
