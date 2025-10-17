@@ -1,19 +1,17 @@
 <!-- eslint-disable vue/multi-word-component-names -->
-<template>
-  <div>
-    我是首页
-    <!-- 二级路由出口 -->
-    <router-view/>
+<script setup>
 
-  </div>
-</template>
+import LayoutNav from '@/views/Layout/components/LayoutNav.vue'
+import LayoutHeader from '@/views/Layout/components/LayoutHeader.vue'
+import LayoutFooter from '@/views/Layout/components/LayoutFooter.vue'
 
-<script>
-export default {
 
-}
 </script>
 
-<style>
-
-</style>
+<template>
+    <LayoutNav />
+    <LayoutHeader />
+    <RouterView />
+    <LayoutFooter />
+   
+</template>
