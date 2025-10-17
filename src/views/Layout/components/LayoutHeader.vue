@@ -1,3 +1,23 @@
+<script setup>
+import { getCategoryAPI } from '@/apis/layout'
+import { ref,onMounted } from 'vue';
+
+const cateGoryList = ref([])
+const getCategory = async ()=>{
+
+  const res = await getCategoryAPI()
+  console.log(res);
+  cateGoryList.value = res.result
+
+}
+
+onMounted(()=>{
+    getCategory()
+  })
+</script>
+
+
+
 <template>
   <header class='app-header'>
     <div class="container">
@@ -5,7 +25,20 @@
         <RouterLink to="/">小兔鲜</RouterLink>
       </h1>
 
-      <LayoutHeaderUl />
+      <ul class="app-header-nav">
+        <li class="home">
+          <RouterLink to="/">首页</RouterLink>
+        </li>
+        <li class="home" v-for="item in cateGoryList" :key="item.id">
+          <RouterLink to="/">
+            {{ item.name }}
+          </RouterLink>
+        </li>
+      </ul>
+
+      <!-- <LayoutHeaderUl /> -->
+      
+      
       <div class="search">
         <i class="iconfont icon-search"></i>
         <input type="text" placeholder="搜一搜">
@@ -18,6 +51,13 @@
 
 
 <style scoped lang='scss'>
+.app-header-nav {
+  width: 820px;
+  display: flex;
+  padding-left: 40px;
+  position: relative;
+  z-index: 998;
+}
 .app-header {
   background: #fff;
 
@@ -85,7 +125,12 @@
         border-radius: 10px;
         font-family: Arial;
       }
+
+     
     }
   }
+}
+.home {
+  margin: 20px;
 }
 </style>
