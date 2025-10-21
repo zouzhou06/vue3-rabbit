@@ -18,7 +18,7 @@ const categoryStore = useCategoryStore()
           <RouterLink to="/">首页</RouterLink>
         </li>
         <li class="home" v-for="item in categoryStore.cateGoryList" :key="item.id">
-          <RouterLink :to="`/category/${item.id}`">
+          <RouterLink active-class="active"  :to="`/category/${item.id}`">
             {{ item.name }}
           </RouterLink>
         </li>
@@ -65,6 +65,29 @@ const categoryStore = useCategoryStore()
       background: url('@/assets/images/logo.png') no-repeat center 18px / contain;
     }
   }
+  li {
+    margin-right: 40px;
+    width: 38px;
+    text-align: center;
+
+    a{
+      font-size: 16px;
+      line-height: 32px;
+      height: 32px;
+      display: inline-block;
+
+      &:hover {
+        color: $xtxColor;
+        border-bottom: 1px solid $xtxColor;
+      }
+    }
+
+    .active {
+      color: $xtxColor;
+      border-bottom: 1px solid $xtxColor;
+    }
+  }
+
 
 
   .search {
@@ -86,39 +109,40 @@ const categoryStore = useCategoryStore()
     }
   }
 
-  .cart {
-    width: 50px;
+  // .cart {
+  //   width: 50px;
 
-    .curr {
-      height: 32px;
-      line-height: 32px;
-      text-align: center;
-      position: relative;
-      display: block;
+  //   .curr {
+  //     height: 32px;
+  //     line-height: 32px;
+  //     text-align: center;
+  //     position: relative;
+  //     display: block;
 
-      .icon-cart {
-        font-size: 22px;
-      }
+  //     .icon-cart {
+  //       font-size: 22px;
+  //     }
 
-      em {
-        font-style: normal;
-        position: absolute;
-        right: 0;
-        top: 0;
-        padding: 1px 6px;
-        line-height: 1;
-        background: $helpColor;
-        color: #fff;
-        font-size: 12px;
-        border-radius: 10px;
-        font-family: Arial;
-      }
+  //     em {
+  //       font-style: normal;
+  //       position: absolute;
+  //       right: 0;
+  //       top: 0;
+  //       padding: 1px 6px;
+  //       line-height: 1;
+  //       background: $helpColor;
+  //       color: #fff;
+  //       font-size: 12px;
+  //       border-radius: 10px;
+  //       font-family: Arial;
+  //     }
 
      
-    }
-  }
+  //   }
+  // }
 }
-.home {
-  margin: 20px;
-}
+// .home {
+//   margin: 20px;
+// }
+
 </style>
