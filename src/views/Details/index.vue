@@ -1,5 +1,6 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <script setup>
+import ImageView from '@/components/ImageView/index.vue'
 import DetailHot from '@/views/Details/components/DetailHot.vue';
 import { getDetail } from '@/apis/detail';
 import { onMounted, ref } from 'vue';
@@ -34,6 +35,7 @@ onMounted(()=>{getGoods()})
           <div class="goods-info">
             <div class="media">
               <!-- 图片预览区 -->
+               <ImageView/>
 
               <!-- 统计数量 -->
               <ul class="goods-sales">
