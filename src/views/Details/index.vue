@@ -1,5 +1,6 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <script setup>
+import DetailHot from '@/views/Details/components/DetailHot.vue';
 import { getDetail } from '@/apis/detail';
 import { onMounted, ref } from 'vue';
 import { useRoute } from 'vue-router';
@@ -20,7 +21,7 @@ onMounted(()=>{getGoods()})
       <div class="bread-container">
         <el-breadcrumb separator=">">
           <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
-          <el-breadcrumb-item :to="{path: `/category/${goods.categories[1].id}` }">{{ goods.categories[1].name }}
+          <el-breadcrumb-item :to="{path: `/category/${goods.categories[1].id}`}">{{ goods.categories[1].name }}
           </el-breadcrumb-item>
           <el-breadcrumb-item :to="{ path: `/category/${goods.categories[0]}.id` }">{{ goods.categories[0].name  }}
           </el-breadcrumb-item>
@@ -53,7 +54,7 @@ onMounted(()=>{getGoods()})
                 </li>
                 <li>
                   <p>品牌信息</p>
-                  <p>{{ goods.brand }}</p>
+                  <p>{{ goods.brand.name }}</p>
                   <p><i class="iconfont icon-dynamic-filling"></i>品牌主页</p>
                 </li>
               </ul>
@@ -117,6 +118,11 @@ onMounted(()=>{getGoods()})
             </div>
             <!-- 24热榜+专题推荐 -->
             <div class="goods-aside">
+                <!-- 24小时 -->
+                <DetailHot :hotType="1"/>
+                <!-- 周 -->
+                <DetailHot :hotType="2"/>
+
 
             </div>
           </div>
