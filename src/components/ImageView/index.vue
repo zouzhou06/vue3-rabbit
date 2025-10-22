@@ -1,6 +1,7 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <script setup>
-import { ref } from 'vue'
+import { useMouseInElement } from '@vueuse/core'
+import { ref,watch } from 'vue'
 // 图片列表
 const imageList = [
   "https://yanxuan-item.nosdn.127.net/d917c92e663c5ed0bb577c7ded73e4ec.png",
@@ -9,12 +10,48 @@ const imageList = [
   "https://yanxuan-item.nosdn.127.net/f93243224dc37674dfca5874fe089c60.jpg",
   "https://yanxuan-item.nosdn.127.net/f881cfe7de9a576aaeea6ee0d1d24823.jpg"
 ]
-// 小图切大图显示
+// 1.小图切大图显示
 const activeIndex = ref(0)
 const enterhandler = (i)=>{
-    return activeIndex.value = i
+    activeIndex.value = i
 }
 
+// 2.获取鼠标的相对位置
+const target = ref(null)
+const left = ref(0)
+const top = ref(0)
+
+const positionX = ref(0)
+const positionY = ref(0)
+
+ 
+const {elementX,elementY,isOutside} = useMouseInElement(target)
+watch([elementX,elementY],()=>{
+    console.log('xy变化了');
+    if(isOutside.value) return
+
+    //有效范围内控制滑块距离
+    
+    // 横向
+    if (elementX.value > 100 && elementX.value < 300) {
+    left.value = elementX.value - 100
+    }
+    // 纵向
+    if (elementY.value > 100 && elementY.value < 300) {
+      top.value = elementY.value - 100
+    }
+
+    // 处理边界
+    if (elementX.value > 300) { left.value = 200 }
+    if (elementX.value < 100) { left.value = 0 }
+
+    if (elementY.value > 300) { top.value = 200 }
+    if (elementY.value < 100) { top.value = 0 }
+
+
+    positionX.value = -left.value *2
+    positionY.value = -top.value *2
+  })
 </script>
 
 
@@ -25,10 +62,10 @@ const enterhandler = (i)=>{
     <div class="middle" ref="target">
       <img :src="imageList[activeIndex]" alt="" />
       <!-- 蒙层小滑块 -->
-      <div class="layer" :style="{ left: `0px`, top: `0px` }"></div>
+      <div class="layer" :style="{ left: `${left}px`, top: `${top}px` }"></div>
     </div>
     <!-- 小图列表 -->
-    <ul class="small">
+    <ul class="small" v-show="!isOutside">
       <li v-for="(img, i) in imageList" :key="i" @mouseenter="enterhandler(i)" :class="{active:i===activeIndex.value}"  >
         <img :src="img" alt="" />
       </li>
@@ -37,10 +74,10 @@ const enterhandler = (i)=>{
     <div class="large" :style="[
       {
         backgroundImage: `url(${imageList[0]})`,
-        backgroundPositionX: `0px`,
-        backgroundPositionY: `0px`,
+        backgroundPositionX: `${positionX}px`,
+        backgroundPositionY: `${positionY}px`,
       },
-    ]" v-show="false"></div>
+    ]" v-show="!isOutside"></div>
   </div>
 </template>
 
