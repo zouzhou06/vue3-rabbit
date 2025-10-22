@@ -1,12 +1,20 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <script setup>
+import {useUserStore} from '@/stores/user'
+import { ElMessage } from 'element-plus'
+import 'element-plus/theme-chalk/el-message.css'
+
+import {  useRouter } from 'vue-router';
+
 import { ref } from 'vue';
+
+const useStore = useUserStore()
 // 表单校验（账号名+密码）
 
 // 准备表单对象
 const form = ref({
-  account:'',
-  password:'',
+  account:'heima282',
+  password:'hm#qd@23!',
   agree:true
   
 })
@@ -37,17 +45,31 @@ const rules = {
    
   
 }
+const router = useRouter()
+
 // 3.获取form实例做统一校验
 const formRef = ref(null)
 const doLogin = ()=>{
   // 调用实例方法
-  formRef.value.validate((valid)=>{
-    console.log(valid);
+  formRef.value.validate(async(valid)=>{
+    
     if(valid) {
       //执行
+      const {account,password} = form.value
+      
+      
+      
+      await useStore.getUserInfo({account,password})
+      // 1.提示用户
+      ElMessage({type:'success',message:'登录成功'})
+      // 2.跳转首页
+      router.replace('/')
+    
+      
     }
     
   })
+  
   
 }
 </script>
