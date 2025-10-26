@@ -1,6 +1,6 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <script setup>
-import {useUserStore} from '@/stores/user'
+import {useUserStore} from '@/stores/userStore'
 import { ElMessage } from 'element-plus'
 import 'element-plus/theme-chalk/el-message.css'
 
@@ -56,9 +56,6 @@ const doLogin = ()=>{
     if(valid) {
       //执行
       const {account,password} = form.value
-      
-      
-      
       await useStore.getUserInfo({account,password})
       // 1.提示用户
       ElMessage({type:'success',message:'登录成功'})

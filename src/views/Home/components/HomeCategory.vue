@@ -1,12 +1,12 @@
 <script setup>
-import {useCategoryStore} from '@/stores/catgory'
+import {useCategoryStore} from '@/stores/categoryStore'
 const categoryStore = useCategoryStore()
 </script>
 
 <template>
   <div class="home-category">
     <ul class="menu">
-      <li v-for="item in categoryStore.cateGoryList" :key="item.id">
+      <li v-for="item in categoryStore.categoryList" :key="item.id">
         <RouterLink to="/">{{item.name}}</RouterLink>
         <RouterLink v-for="i in item.children.slice(0,2)" :key="i.id" to="/">{{ i.name }}</RouterLink>
         <!-- 弹层layer位置 -->
